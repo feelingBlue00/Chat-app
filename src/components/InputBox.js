@@ -15,12 +15,12 @@ export default class InputBox extends React.Component {
         this.setState({message: event.target.value});
     }
 
-    handleSendHandler = (event) => {
+    messageSentHandler = (event) => {
         
     }
 
     render() {
-        <input type="text" placeholder="Type a message..." onChange={}/>
+        <input type="text" placeholder="Type a message..." onChange={(event) => this.messageChangedHandler(event)}/>
     }
 
 }
