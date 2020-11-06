@@ -7,7 +7,7 @@ const initialState = {
     passwordError: "",
 }
 
-export default class LoginForm extends Component {
+export default class LoginForm extends React.Component {
 
     
 

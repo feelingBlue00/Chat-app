@@ -1,14 +1,22 @@
 import React from 'react';
 
-export default class InputBox extends Component {
+export default class InputBox extends React.Component {
 
     state = {
         message: null,
         isTyping: false
     }
 
-    handleInput = (e) => {
-                
+    handleInput = (event) => {
+
+    }
+
+    messageChangedHandler = (event) => {
+        this.setState({message: event.target.value});
+    }
+
+    handleSendHandler = (event) => {
+        
     }
 
     render() {
