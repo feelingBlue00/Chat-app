@@ -1,11 +1,10 @@
-import React from 'react';
+import React from "react";
+import LoginForm from "./components/LoginForm";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        
-      </header>
+      <LoginForm />
     </div>
   );
 }
