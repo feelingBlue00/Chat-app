@@ -38,11 +38,18 @@ export default class LoginForm extends React.Component {
     event.preventDefault();
     const isValid = this.validate();
     if (isValid) {
-      this.setState(initialState);
+      this.setState({
+        initialState,
+        submitted: true,
+      });
     }
   };
 
   render() {
+    if (this.state.submitted) {
+      return <MainApp username={this.state.username} />;
+    }
+
     return (
       <div>
         <div style={{ fontWeight: "bold", fontSize: 18, textAlign: "center" }}>
@@ -58,6 +65,7 @@ export default class LoginForm extends React.Component {
                 placeholder="Username"
                 value={this.state.username}
                 onChange={(event) => this.handleChange(event)}
+                required
               />
               <div style={{ color: "red", fontSize: 11 }}>
                 {this.state.usernameError}
@@ -71,6 +79,7 @@ export default class LoginForm extends React.Component {
                 placeholder="Password"
                 value={this.state.password}
                 onChange={(event) => this.handleChange(event)}
+                required
               />
               <div style={{ color: "red", fontSize: 11 }}>
                 {this.state.passwordError}
