@@ -1,11 +1,10 @@
 import React from "react";
-import ChatBox from "./components/ChatBox";
-import InputBox from "./components/InputBox";
+import LoginForm from "./components/LoginForm";
 
 function App() {
   return (
     <div className="App">
-      <ChatBox />
+      <LoginForm />
     </div>
   );
 }

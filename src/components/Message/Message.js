@@ -1,10 +1,13 @@
 import React from "react";
 
 export default class Message extends React.Component {
-  state = {
-    fromThisUser: true,
-    userName: "",
-  };
+  render() {
+    const fromThisUser = this.props.fromThisUser ? "fromThisUser" : "";
 
-  render() {}
+    return (
+      <div className={`message ${fromThisUser}`}>
+        <div className="message">{this.props.message}</div>
+      </div>
+    );
+  }
 }

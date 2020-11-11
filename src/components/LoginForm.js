@@ -1,11 +1,11 @@
 import React from "react";
+import shortid from "shortid";
 import "../css/LoginForm.css";
+import MainApp from "./MainApp";
 
 const initialState = {
   username: "",
-  password: "",
   usernameError: "",
-  passwordError: "",
 };
 
 export default class LoginForm extends React.Component {
@@ -21,13 +21,8 @@ export default class LoginForm extends React.Component {
       nameError = "Name cannot be blank";
     }
 
-    let passwordError = "";
-    if (!this.state.password) {
-      passwordError = "Password cannot be blank";
-    }
-
-    if (nameError || passwordError) {
-      this.setState({ nameError, passwordError });
+    if (nameError) {
+      this.setState({ nameError });
       return false;
     }
 
@@ -41,26 +36,34 @@ export default class LoginForm extends React.Component {
       this.setState({
         initialState,
         submitted: true,
+        id: shortid.generate(),
       });
     }
   };
 
   render() {
     if (this.state.submitted) {
-      return <MainApp username={this.state.username} />;
+      return <MainApp />;
     }
 
     return (
       <div>
-        <div style={{ fontWeight: "bold", fontSize: 18, textAlign: "center" }}>
+        <h1
+          style={{
+            fontWeight: "bold",
+            fontSize: 18,
+            textAlign: "center",
+            display: "block",
+          }}
+        >
           Sad chat room
-        </div>
+        </h1>
         <br />
         <div className="login">
           <form onSubmit={this.handleSubmit}>
             <div>
               <input
-                name="userName"
+                name="username"
                 type="text"
                 placeholder="Username"
                 value={this.state.username}
@@ -69,20 +72,6 @@ export default class LoginForm extends React.Component {
               />
               <div style={{ color: "red", fontSize: 11 }}>
                 {this.state.usernameError}
-              </div>
-            </div>
-            <br />
-            <div>
-              <input
-                name="password"
-                type="password"
-                placeholder="Password"
-                value={this.state.password}
-                onChange={(event) => this.handleChange(event)}
-                required
-              />
-              <div style={{ color: "red", fontSize: 11 }}>
-                {this.state.passwordError}
               </div>
             </div>
             <br />
