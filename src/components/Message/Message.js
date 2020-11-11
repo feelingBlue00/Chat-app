@@ -11,3 +11,9 @@ export default class Message extends React.Component {
     );
   }
 }
+
+Message.defaultProps = {
+  message: "",
+  username: "",
+  fromThisUser: false,
+};
