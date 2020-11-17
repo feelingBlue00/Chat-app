@@ -1,6 +1,7 @@
 import React from "react";
-import InputBox from "../Message/InputBox.js";
 import Messages from "../Message/Messages.js";
+import "../../css/MainApp.css";
+import "../../css/ChatWindow.css";
 
 export default class ChatWindow extends React.Component {
   state = {
@@ -9,9 +10,10 @@ export default class ChatWindow extends React.Component {
 
   render() {
     return (
-      <div className="chat-window">
-        <Messages messages={this.props.messages} />
-        <InputBox />
+      <div>
+        <div className="chat-window">
+          <Messages />
+        </div>
       </div>
     );
   }

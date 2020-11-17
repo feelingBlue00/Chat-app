@@ -1,0 +1,71 @@
+.the-app {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-box {
+  position: relative;
+  overflow: hidden;
+  padding: 0 40px;
+  flex-shrink: 0;
+}
+
+.input-box input[type="text"] {
+  width: 100%;
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
+.message.from-this-user .username {
+  display: none;
+}
+
+.message.from-this-user {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+}
+
+.message.from-this-user .message-content {
+  background-color: cornflowerblue;
+  color: black;
+}
+
+.message {
+  margin-bottom: 20px;
+}
+
+.message-content {
+  max-width: 80%;
+  display: inline-block;
+  padding: 20px;
+  background-color: whitesmoke;
+  border: 1px;
+  border-radius: 5px;
+  padding-right: 50px;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #999;
+  margin-bottom: 5px;
+}
+
+/* .contact-container {
+  display: flex;
+  float: left;
+  height: 100%;
+  width: 25%;
+  background-color: whitesmoke;
+  position: absolute;
+}
+
+.chat-container {
+  display: flex;
+  float: right;
+  height: 100%;
+  width: 75%;
+  background-color: whitesmoke;
+  position: absolute;
+} */

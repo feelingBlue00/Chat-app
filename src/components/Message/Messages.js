@@ -15,13 +15,22 @@ export default class Messages extends React.Component {
     });
 
     return (
-      <div className="messages" id="chat-messages">
+      <div
+        className="messages"
+        style={{
+          overflowY: "scroll",
+          overflowX: "hidden",
+          flexGrow: 1,
+          padding: 20,
+        }}
+        id="chat-messages"
+      >
         {messages}
       </div>
     );
   }
 }
 
-Message.defaultProps = {
+Messages.defaultProps = {
   messages: [],
 };

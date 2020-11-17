@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/InputBox.css";
+import "../../css/InputBox.css";
 
 export default class InputBox extends React.Component {
   state = {
@@ -14,27 +14,33 @@ export default class InputBox extends React.Component {
   submitHandler = (event) => {
     event.preventDefault();
     this.setState({ message: "" });
-    this.props.sendMessage(this.state.message);
   };
 
   render() {
     return (
       <div>
-        <div className="input-box">
+        <form
+          className="input-box"
+          id="input-box"
+          onSubmit={this.submitHandler}
+        >
           <input
             type="text"
+            onChange={this.messageChangedHandler}
+            value={this.state.message}
             placeholder="Type a message..."
-            onChange={(event) => this.messageChangedHandler(event)}
             required
           />
-          <button
-            type="button"
-            className="send-button"
-            onClick={(event) => this.submitHandler(event)}
-          >
-            Send
-          </button>
-        </div>
+        </form>
+        <button
+          type="submit"
+          className="send-button"
+          value="Send"
+          form="input-box"
+          onClick={(event) => this.submitHandler(event)}
+        >
+          Send
+        </button>
       </div>
     );
   }
