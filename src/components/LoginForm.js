@@ -43,7 +43,7 @@ export default class LoginForm extends React.Component {
 
   render() {
     if (this.state.submitted) {
-      return <MainApp />;
+      return <MainApp username={this.state.username} />;
     }
 
     return (

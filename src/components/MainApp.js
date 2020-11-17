@@ -1,9 +1,9 @@
 import React from "react";
-import ChatWindow from "./ChatRoom/ChatWindow";
 import InputBox from "./ChatRoom/InputBox";
 import ContactList from "./ChatRoom/ContactList";
 
 import "../css/MainApp.css";
+import Messages from "./Message/Messages";
 
 export default class MainApp extends React.Component {
   constructor(props) {
@@ -27,24 +27,18 @@ export default class MainApp extends React.Component {
       username: this.props.username,
       message,
     };
+    messageObj.fromThisUser = true;
     this.addMessage(messageObj);
   }
 
   render() {
     return (
-      <div className="the-app">
+      <div className="container">
         {/* <div className="contact-container">
           <ContactList />
         </div> */}
-        <div className="chat-container">
-          <div className="chat-window">
-            <ChatWindow />
-          </div>
-
-          <div className="input-box">
-            <InputBox onClick={this.sendMessage} />
-          </div>
-        </div>
+        <Messages messages={this.state.messages} />
+        <InputBox onClick={this.sendMessage} />
       </div>
     );
   }

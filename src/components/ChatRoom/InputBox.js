@@ -3,17 +3,17 @@ import "../../css/InputBox.css";
 
 export default class InputBox extends React.Component {
   state = {
-    message: "",
+    textInput: "",
     isTyping: false,
   };
 
   messageChangedHandler = (event) => {
-    this.setState({ message: event.target.value });
+    this.setState({ textInput: event.target.value, isTyping: true });
   };
 
   submitHandler = (event) => {
     event.preventDefault();
-    this.setState({ message: "" });
+    this.setState({ textInput: "", isTyping: false });
   };
 
   render() {
@@ -27,7 +27,7 @@ export default class InputBox extends React.Component {
           <input
             type="text"
             onChange={this.messageChangedHandler}
-            value={this.state.message}
+            value={this.state.textInput}
             placeholder="Type a message..."
             required
           />

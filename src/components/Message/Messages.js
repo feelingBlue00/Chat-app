@@ -3,12 +3,12 @@ import Message from "./Message";
 
 export default class Messages extends React.Component {
   render() {
-    const messages = this.props.messages.map((message, i) => {
+    const messages = this.props.messages.map((message) => {
       return (
         <Message
-          key={i}
+          //          key={i}
           message={message.message}
-          user={message.username}
+          username={message.username}
           fromThisUser={message.fromThisUser}
         />
       );
@@ -30,6 +30,10 @@ export default class Messages extends React.Component {
     );
   }
 }
+
+Messages.defaultProps = {
+  messages: [],
+};
 
 Messages.defaultProps = {
   messages: [],
