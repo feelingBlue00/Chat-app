@@ -1,12 +1,13 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Message from "./Message";
 
 export default class Messages extends React.Component {
   render() {
-    const messages = this.props.messages.map((message) => {
+    const messages = this.props.messages.map((message, i) => {
       return (
         <Message
-          //          key={i}
+          key={i}
           message={message.message}
           username={message.username}
           fromThisUser={message.fromThisUser}
@@ -30,10 +31,6 @@ export default class Messages extends React.Component {
     );
   }
 }
-
-Messages.defaultProps = {
-  messages: [],
-};
 
 Messages.defaultProps = {
   messages: [],

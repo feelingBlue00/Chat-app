@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "../../css/InputBox.css";
 
 export default class InputBox extends React.Component {

@@ -1,9 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import InputBox from "./ChatRoom/InputBox";
 import ContactList from "./ChatRoom/ContactList";
+import Messages from "./Message/Messages";
 
 import "../css/MainApp.css";
-import Messages from "./Message/Messages";
 
 export default class MainApp extends React.Component {
   constructor(props) {
@@ -17,9 +19,8 @@ export default class MainApp extends React.Component {
   }
 
   addMessage(message) {
-    const messages = this.state.messages;
-    messages.push(message);
-    this.setState({ messages });
+    const updated_messages = [message, ...this.state.messages];
+    this.setState({ messages: updated_messages });
   }
 
   sendMessage(message) {
