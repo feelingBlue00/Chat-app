@@ -14,8 +14,6 @@ export default class Messages extends React.Component {
       );
     });
 
-    // console.log(messages);
-
     return (
       <div
         className="messages"
