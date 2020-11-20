@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Message from "./Message";
 
 export default class Messages extends React.Component {
@@ -14,6 +13,8 @@ export default class Messages extends React.Component {
         />
       );
     });
+
+    // console.log(messages);
 
     return (
       <div

@@ -1,6 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
-import "../../css/InputBox.css";
 
 export default class InputBox extends React.Component {
   state = {
@@ -14,6 +12,10 @@ export default class InputBox extends React.Component {
 
   submitHandler = (event) => {
     event.preventDefault();
+    this.props.sendMessage(this.state.textInput);
+    // id: shortid.generate(),
+    // textInput: this.state.textInput,
+    // );
     this.setState({ textInput: "", isTyping: false });
   };
 

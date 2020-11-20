@@ -1,36 +1,27 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import InputBox from "./ChatRoom/InputBox";
-import ContactList from "./ChatRoom/ContactList";
 import Messages from "./Message/Messages";
 
 import "../css/MainApp.css";
 
 export default class MainApp extends React.Component {
-  constructor(props) {
-    super();
+  state = {
+    messages: [],
+  };
 
-    this.state = {
-      messages: [],
-    };
-
-    this.sendMessage = this.sendMessage.bind(this);
-  }
-
-  addMessage(message) {
-    const updated_messages = [message, ...this.state.messages];
-    this.setState({ messages: updated_messages });
-  }
-
-  sendMessage(message) {
+  sendMessage = (message) => {
+    const messages = this.state.messages;
     const messageObj = {
       username: this.props.username,
-      message,
+      message: message,
+      fromThisUser: true,
     };
-    messageObj.fromThisUser = true;
-    this.addMessage(messageObj);
-  }
+    //   messageObj.fromThisUser = true;
+    messages.push(messageObj);
+    this.setState({ messages: messages });
+    //  console.log(messages);
+  };
 
   render() {
     return (
@@ -39,7 +30,7 @@ export default class MainApp extends React.Component {
           <ContactList />
         </div> */}
         <Messages messages={this.state.messages} />
-        <InputBox onClick={this.sendMessage} />
+        <InputBox sendMessage={this.sendMessage} />
       </div>
     );
   }
