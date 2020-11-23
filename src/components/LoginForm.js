@@ -1,6 +1,7 @@
 import React from "react";
 import shortid from "shortid";
 import "../css/LoginForm.css";
+import ContactList from "./ChatRoom/ContactList";
 import MainApp from "./MainApp";
 
 const initialState = {
@@ -43,7 +44,17 @@ export default class LoginForm extends React.Component {
 
   render() {
     if (this.state.submitted) {
-      return <MainApp username={this.state.username} />;
+      return (
+        <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+          <ContactList style={{ float: "left", width: "20%" }} />
+          <MainApp
+            username={this.state.username}
+            style={{
+              marginLeft: "20&",
+            }}
+          />
+        </div>
+      );
     }
 
     return (
@@ -66,6 +77,7 @@ export default class LoginForm extends React.Component {
                 name="username"
                 type="text"
                 placeholder="Username"
+                autoComplete="off"
                 value={this.state.username}
                 onChange={(event) => this.handleChange(event)}
                 required

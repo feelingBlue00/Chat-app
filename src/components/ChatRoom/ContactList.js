@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 export default class ContactList extends React.Component {
   state = {
@@ -30,10 +29,11 @@ export default class ContactList extends React.Component {
             placeholder="Search by name"
             value={this.state.searchContact}
             onChange={(event) => this.handleSearchContact(event)}
+            style={{ display: "inline" }}
           />
+          <button className="search-button">Button</button>
         </div>
-        <button className="search-button">Button</button>
-        <div className="contact-list"></div>
+        <div className="contact-list" overflow="scroll"></div>
       </div>
     );
   }

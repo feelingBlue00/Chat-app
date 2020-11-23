@@ -1,4 +1,5 @@
 import React from "react";
+import "../../css/InputBox.css";
 
 export default class InputBox extends React.Component {
   state = {
@@ -21,14 +22,15 @@ export default class InputBox extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ alignItems: "right" }}>
         <form
-          className="input-box"
+          style={{ display: "inline", margin: 5 }}
           id="input-box"
           onSubmit={this.submitHandler}
         >
           <input
             type="text"
+            className="input-box"
             onChange={this.messageChangedHandler}
             value={this.state.textInput}
             placeholder="Type a message..."
