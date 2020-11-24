@@ -1,0 +1,17 @@
+{
+  "name": "server-for-chat",
+  "version": "1.0.0",
+  "description": "server for chat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "feelingBlue00",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^3.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
