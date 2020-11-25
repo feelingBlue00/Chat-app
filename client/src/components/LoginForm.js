@@ -51,6 +51,7 @@ export default class LoginForm extends React.Component {
             username={this.state.username}
             style={{
               marginLeft: "20&",
+              borderLeft: "2px solid black !important",
             }}
           />
         </div>

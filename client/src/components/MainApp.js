@@ -29,7 +29,7 @@ export default class MainApp extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="chat-container">
         <div
           className="room-name"
           style={{
@@ -42,8 +42,9 @@ export default class MainApp extends React.Component {
           {this.props.username}
         </div>
         <hr />
-        <div className="chat-container">
+        <div>
           <Messages
+            className="message-container"
             messages={this.state.messages}
             username={this.props.username}
           />

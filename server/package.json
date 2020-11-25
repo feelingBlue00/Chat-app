@@ -4,11 +4,12 @@
   "description": "server for chat",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "devStart": "nodemon server.js"
   },
   "author": "feelingBlue00",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "socket.io": "^3.0.3"
   },
   "devDependencies": {
