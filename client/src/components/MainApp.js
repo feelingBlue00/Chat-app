@@ -1,6 +1,7 @@
 import React from "react";
 import InputBox from "./ChatRoom/InputBox";
 import Messages from "./Message/Messages";
+import "../css/InputBox.css";
 import "../css/MainApp.css";
 
 export default class MainApp extends React.Component {
@@ -30,17 +31,7 @@ export default class MainApp extends React.Component {
   render() {
     return (
       <div className="chat-container">
-        <div
-          className="room-name"
-          style={{
-            fontWeight: "bold",
-            fontSize: 16,
-            textAlign: "center",
-            height: "30px",
-          }}
-        >
-          {this.props.username}
-        </div>
+        <div className="room-name">{this.props.username}</div>
         <hr />
         <div>
           <Messages
@@ -48,7 +39,9 @@ export default class MainApp extends React.Component {
             messages={this.state.messages}
             username={this.props.username}
           />
-          <InputBox sendMessage={this.sendMessage} />
+        </div>
+        <div>
+          <InputBox className="user-input" sendMessage={this.sendMessage} />
         </div>
       </div>
     );

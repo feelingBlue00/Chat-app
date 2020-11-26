@@ -22,7 +22,7 @@ export default class InputBox extends React.Component {
 
   render() {
     return (
-      <div style={{ alignItems: "right" }}>
+      <div className="user-input" style={{ alignItems: "right" }}>
         <form
           style={{ display: "inline", margin: 5 }}
           id="input-box"
@@ -30,7 +30,7 @@ export default class InputBox extends React.Component {
         >
           <input
             type="text"
-            className="input-box"
+            className="user-input"
             onChange={this.messageChangedHandler}
             value={this.state.textInput}
             placeholder="Type a message..."

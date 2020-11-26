@@ -31,7 +31,7 @@ export default class ContactList extends React.Component {
             onChange={(event) => this.handleSearchContact(event)}
             style={{ display: "inline" }}
           />
-          <button className="search-button">Button</button>
+          <button className="search-button">Search</button>
         </div>
         <div className="contact-list" overflow="scroll"></div>
       </div>

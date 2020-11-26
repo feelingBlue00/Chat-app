@@ -46,8 +46,12 @@ export default class LoginForm extends React.Component {
     if (this.state.submitted) {
       return (
         <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
-          <ContactList style={{ float: "left", width: "20%" }} />
+          <ContactList
+            className="contact"
+            style={{ float: "left", width: "20%" }}
+          />
           <MainApp
+            className="main-app"
             username={this.state.username}
             style={{
               marginLeft: "20&",
@@ -68,7 +72,7 @@ export default class LoginForm extends React.Component {
             display: "block",
           }}
         >
-          Sad chat room
+          Enter your user name
         </h1>
         <br />
         <div className="login">

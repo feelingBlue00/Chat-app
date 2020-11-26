@@ -5,8 +5,7 @@ body {
 
 html,
 body,
-#app,
-.chat-container {
+#root {
   min-height: 100vh;
   max-height: 100vh;
   max-width: 100%;
