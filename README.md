@@ -1,3 +1,3 @@
-Demo chat app similar to Messenger of Facebook.
+Demo chat app.
 
 Built using ReactJS.
