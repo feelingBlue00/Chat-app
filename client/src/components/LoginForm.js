@@ -1,7 +1,7 @@
 import React from "react";
 import ChatWindow from "./ChatWindow";
 
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, Divider } from "antd";
 
 const initialState = {
   username: "",
@@ -47,11 +47,7 @@ class LoginForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const isValid = this.validate();
-
-    if (isValid) {
-      this.setState({ initialState, submitted: true });
-    }
+    this.setState({ initialState, submitted: true });
   }
 
   render() {
@@ -74,7 +70,7 @@ class LoginForm extends React.Component {
 
     if (this.state.submitted) {
       return (
-        <div>
+        <div className="container">
           <ChatWindow
             className="chat-window"
             username={this.state.username}
@@ -85,7 +81,7 @@ class LoginForm extends React.Component {
     }
 
     return (
-      <div>
+      <Divider className="container">
         <h1
           style={{
             fontWeight: "bold",
@@ -97,7 +93,7 @@ class LoginForm extends React.Component {
           Enter your user name and user id
         </h1>
         <br />
-        <div className="login-form">
+        <Divider className="login-form">
           <Form {...layout} initialValues={{ remember: true }}>
             <Form.Item
               label="userId"
@@ -106,21 +102,25 @@ class LoginForm extends React.Component {
             >
               <Input
                 placeholder="Enter your user id"
-                onChange={this.handleChange}
+                value={this.state.userId}
+                type="text"
+                onChange={(event) => this.handleChange(event)}
                 autoComplete="off"
               />
             </Form.Item>
 
             <Form.Item
-              label="password"
-              name="password"
+              label="username"
+              name="username"
               rules={[
-                { required: true, message: "Please enter your password" },
+                { required: true, message: "Please enter your username" },
               ]}
             >
-              <Input.Password
-                placeholder="Enter your password"
-                onChange={this.handleChange}
+              <Input
+                placeholder="Enter your username"
+                onChange={(event) => this.handleChange(event)}
+                value={this.state.username}
+                type="text"
                 autoComplete="off"
               />
             </Form.Item>
@@ -133,14 +133,14 @@ class LoginForm extends React.Component {
               <Button
                 type="primary"
                 htmlType="submit"
-                onSubmit={this.handleSubmit}
+                onSubmit={(event) => this.handleSubmit(event)}
               >
                 Submit
               </Button>
             </Form.Item>
           </Form>
-        </div>
-      </div>
+        </Divider>
+      </Divider>
     );
   }
 }

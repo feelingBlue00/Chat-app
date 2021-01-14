@@ -1,17 +1,15 @@
-import React from 'react';
-import { Button } from 'antd';
+import React from "react";
+import { Button, Avatar } from "antd";
 
-class MainApp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
-    }
+class ChatWindow extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-    render() { 
-        return ( 
-            
-         );
-    }
+  render() {
+    return;
+  }
 }
- 
-export default MainApp;
+
+export default ChatWindow;

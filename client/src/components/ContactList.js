@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "antd";
+import { Button, Divider, Input } from "antd";
 
 class ContactList extends React.Component {
   constructor(props) {
@@ -22,9 +22,10 @@ class ContactList extends React.Component {
 
   render() {
     return (
-      <div id="contact-list">
+      <Divider>
+        <Input placeholder="Enter your search" autoComplete="off" />
         <Button id="seach-contact-btn" onclick={this.searchContact} />
-      </div>
+      </Divider>
     );
   }
 }
