@@ -24,7 +24,7 @@ class ContactList extends React.Component {
     return (
       <Divider>
         <Input placeholder="Enter your search" autoComplete="off" />
-        <Button id="seach-contact-btn" onclick={this.searchContact} />
+        <Button id="search-contact-btn" onclick={this.searchContact} />
       </Divider>
     );
   }

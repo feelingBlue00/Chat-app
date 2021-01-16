@@ -1,15 +1,6 @@
 import React from "react";
-import { Button, Avatar } from "antd";
+import { Divider } from "antd";
 
-class ChatWindow extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    return;
-  }
+export default function ChatWindow({ userId }) {
+  return <Divider>{userId}</Divider>;
 }
-
-export default ChatWindow;
