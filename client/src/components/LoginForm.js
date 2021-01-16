@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Form, Input, Button, Divider } from "antd";
 import shortid from "shortid";
 
@@ -13,11 +13,8 @@ const layout = {
 };
 
 export default function LoginForm({ onIdSubmit }) {
-  const idRef = useRef();
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    onIdSubmit(idRef.current.value);
+  function handleSubmit(id) {
+    onIdSubmit(id.userId);
   }
 
   function createNewId() {
@@ -38,21 +35,28 @@ export default function LoginForm({ onIdSubmit }) {
       </h1>
       <br />
       <Divider className="login-form">
-        <Form {...layout} onSubmit={handleSubmit}>
+        <Form
+          {...layout}
+          initialValues={{ remember: true }}
+          onFinish={handleSubmit}
+        >
           <Form.Item
-            label="Id"
+            label="Enter your Id"
             name="userId"
             rules={[{ required: true, message: "Please enter your user id" }]}
           >
             <Input
               placeholder="Enter your user id"
               type="text"
-              ref={idRef}
+              name="userId"
               autoComplete="off"
             />
           </Form.Item>
 
           <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Login
+            </Button>
             <Button
               type="secondary"
               onClick={createNewId}
