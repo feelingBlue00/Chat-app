@@ -1,0 +1,19 @@
+#message {
+  padding: 10px;
+  margin: 10px;
+  width: fit-content;
+  border: 1px solid;
+  border-radius: 20px;
+}
+
+.message-by-me {
+  background-color: cornflowerblue !important;
+  border-radius: 10px;
+  margin-left: auto;
+  align-items: right;
+}
+
+.message-by-guest {
+  background-color: grey !important;
+  border-radius: 10px;
+}

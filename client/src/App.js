@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
+
+import { Divider } from "antd";
+
 import LoginForm from "./components/LoginForm";
-import Dashboard from "./components/room/Dashboard";
-// import useLocalStorage from "./hooks/useLocalStorage";
+//import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
-  // const [id, setId] = useLocalStorage("id");
-  const [id, setId] = useState();
-  const dashboard = <Dashboard userId={id} />;
-
-  return id ? dashboard : <LoginForm onIdSubmit={setId} />;
+  return (
+    <Divider className="login-form">
+      <LoginForm />
+    </Divider>
+  );
 }
 
 export default App;

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Divider } from "antd";
 import shortid from "shortid";
+
+import Conversation from "../components/room/Conversation";
 
 const layout = {
   labelCol: {
@@ -12,17 +14,35 @@ const layout = {
   },
 };
 
-export default function LoginForm({ onIdSubmit }) {
-  function handleSubmit(id) {
-    onIdSubmit(id.userId);
-  }
+const LoginForm = () => {
+  const [submitted, setSubmitted] = useState(false);
+  const [id, setId] = useState("");
+
+  const handleSubmit = () => {
+    console.log(id);
+    setSubmitted((current) => !current);
+  };
+
+  useEffect(() => {
+    console.log(submitted);
+  }, [submitted]);
 
   function createNewId() {
-    onIdSubmit(shortid.generate());
+    setId(() => {
+      shortid.generate();
+    });
+  }
+
+  if (submitted) {
+    return (
+      <Divider>
+        <Conversation userId={id} />
+      </Divider>
+    );
   }
 
   return (
-    <Divider className="login-container">
+    <div className="login-container">
       <h1
         style={{
           fontWeight: "bold",
@@ -31,7 +51,7 @@ export default function LoginForm({ onIdSubmit }) {
           display: "block",
         }}
       >
-        Enter your user name and id
+        Enter your user ID
       </h1>
       <br />
       <Divider className="login-form">
@@ -41,15 +61,17 @@ export default function LoginForm({ onIdSubmit }) {
           onFinish={handleSubmit}
         >
           <Form.Item
-            label="Enter your Id"
+            label="Id"
             name="userId"
             rules={[{ required: true, message: "Please enter your user id" }]}
           >
             <Input
+              value={id}
               placeholder="Enter your user id"
               type="text"
               name="userId"
               autoComplete="off"
+              onChange={(event) => setId(event.target.value)}
             />
           </Form.Item>
 
@@ -67,6 +89,8 @@ export default function LoginForm({ onIdSubmit }) {
           </Form.Item>
         </Form>
       </Divider>
-    </Divider>
+    </div>
   );
-}
+};
+
+export default LoginForm;
