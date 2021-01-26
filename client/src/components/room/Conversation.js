@@ -7,6 +7,16 @@ import Message from "../room/Message";
 import "../../css/Conversation.css";
 
 export default function Conversation({ userId }) {
+  const formItemLayout = {
+    labelCol: { span: 24 },
+    wrapperCol: { span: 24 },
+  };
+
+  const buttonItemLayout = {
+    labelCol: { span: 24 },
+    wrapperCol: { span: 24 },
+  };
+
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
 
@@ -18,17 +28,18 @@ export default function Conversation({ userId }) {
   };
 
   return (
-    <Divider className="conversation-pane">
+    <div className="conversation-pane">
       {/*For testing*/}
-      <Divider className="messages-container">
-        {userId}
+      <Divider className="name-displayed">{userId}</Divider>
+
+      <div className="messages-container">
         {messages.map((message, index) => (
           <Message message={message} userId={userId} />
         ))}
-      </Divider>
+      </div>
 
-      <Form id="message-input" onFinish={sendMessage}>
-        <Form.Item rules={[{ required: true }]}>
+      <Form id="message-input" onFinish={sendMessage} layout="inline">
+        <Form.Item rules={[{ required: true }]} {...formItemLayout}>
           <Input.TextArea
             placeholder="Enter a message..."
             value={input}
@@ -42,7 +53,7 @@ export default function Conversation({ userId }) {
             }}
           />
         </Form.Item>
-        <Form.Item name="sendButton">
+        <Form.Item name="sendButton" {...buttonItemLayout}>
           <Button
             className="sendButton"
             type="primary"
@@ -57,6 +68,6 @@ export default function Conversation({ userId }) {
           />
         </Form.Item>
       </Form>
-    </Divider>
+    </div>
   );
 }

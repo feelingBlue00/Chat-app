@@ -35,14 +35,14 @@ const LoginForm = () => {
 
   if (submitted) {
     return (
-      <Divider>
+      <div>
         <Conversation userId={id} />
-      </Divider>
+      </div>
     );
   }
 
   return (
-    <div className="login-container">
+    <Divider className="login-container">
       <h1
         style={{
           fontWeight: "bold",
@@ -54,7 +54,7 @@ const LoginForm = () => {
         Enter your user ID
       </h1>
       <br />
-      <Divider className="login-form">
+      <div className="login-form">
         <Form
           {...layout}
           initialValues={{ remember: true }}
@@ -88,8 +88,8 @@ const LoginForm = () => {
             </Button>
           </Form.Item>
         </Form>
-      </Divider>
-    </div>
+      </div>
+    </Divider>
   );
 };
 
