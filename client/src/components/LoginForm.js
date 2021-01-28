@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Divider } from "antd";
-import shortid from "shortid";
+import { Link } from "react-router-dom";
 
 import Conversation from "../components/room/Conversation";
 
@@ -17,6 +17,7 @@ const layout = {
 const LoginForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [id, setId] = useState("");
+  const [room, setRoom] = useState("");
 
   const handleSubmit = () => {
     console.log(id);
@@ -26,12 +27,6 @@ const LoginForm = () => {
   useEffect(() => {
     console.log(submitted);
   }, [submitted]);
-
-  function createNewId() {
-    setId(() => {
-      shortid.generate();
-    });
-  }
 
   if (submitted) {
     return (
@@ -51,7 +46,7 @@ const LoginForm = () => {
           display: "block",
         }}
       >
-        Enter your user ID
+        Enter your user ID and room
       </h1>
       <br />
       <div className="login-form">
@@ -75,16 +70,24 @@ const LoginForm = () => {
             />
           </Form.Item>
 
+          <Form.Item
+            label="room"
+            name="room"
+            rules={[{ required: true, message: "Please enter room id" }]}
+          >
+            <Input
+              value={room}
+              placeholder="Enter room id"
+              type="text"
+              name="room"
+              autoComplete="off"
+              onChange={(event) => setRoom(event.target.value)}
+            />
+          </Form.Item>
+
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Login
-            </Button>
-            <Button
-              type="secondary"
-              onClick={createNewId}
-              className="new-id-btn"
-            >
-              Create new Id
             </Button>
           </Form.Item>
         </Form>

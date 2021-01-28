@@ -2,6 +2,11 @@
   width: 100% !important;
 }
 
+.message-container {
+  bottom: 25px;
+  overflow: scroll !important;
+}
+
 #message-input {
   position: fixed;
   bottom: 10px;
