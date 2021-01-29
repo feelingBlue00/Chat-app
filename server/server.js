@@ -1,16 +1,27 @@
 const { Console } = require("console");
 const express = require("express");
 const uploadFile = require("express-fileupload");
-const socketio = require("socketio");
+const socketio = require("socket.io");
 const http = require("http");
 
 const PORT = process.env.PORT || 5000;
+
+const router = require("./router");
 
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
+io.on("connection", (socket) => {
+  console.log("New connection");
+
+  socket.on("Disconnect", () => {
+    console.log("User had left the room");
+  });
+});
+
 app.use(uploadFile());
+app.use(router);
 
 app.post("/upload", (req, res) => {
   if (req.files == null) {
