@@ -86,9 +86,16 @@ const LoginForm = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Login
-            </Button>
+            <Link
+              onClick={(event) =>
+                !id || !room ? event.preventDefault() : null
+              }
+              to={`/conversation?id=${id}&room=${room}`}
+            >
+              <Button type="primary" htmlType="submit">
+                Login
+              </Button>
+            </Link>
           </Form.Item>
         </Form>
       </div>
