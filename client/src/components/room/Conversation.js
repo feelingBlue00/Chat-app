@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import shortid from "shortid";
+import queryString from "query-string";
+import io from "socket.io-client";
 
 import { Divider, Button, Form, Input } from "antd";
 import { SendOutlined } from "@ant-design/icons";
@@ -6,7 +9,9 @@ import { SendOutlined } from "@ant-design/icons";
 import Message from "../room/Message";
 import "../../css/Conversation.css";
 
-export default function Conversation({ userId }) {
+let socket;
+
+const Conversation = ({ userId, location }) => {
   const formItemLayout = {
     labelCol: { span: 24 },
     wrapperCol: { span: 24 },
@@ -19,6 +24,9 @@ export default function Conversation({ userId }) {
 
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
+  const [id, setId] = useState("");
+  const [room, setRoom] = useState("");
+  const ENDPOINT = "localhost:5000";
 
   console.log(messages);
 
@@ -27,14 +35,31 @@ export default function Conversation({ userId }) {
     setInput("");
   };
 
+  useEffect(() => {
+    const { id, room } = queryString.parse(location.search);
+
+    socket = io(ENDPOINT);
+
+    setId(id);
+    setRoom(room);
+
+    socket.emit("conversation", { id, room }, () => {});
+
+    return () => {
+      socket.emit("disconnect");
+
+      socket.off();
+    };
+  }, [ENDPOINT, location.search]);
+
   return (
     <div className="conversation-pane">
       {/*For testing*/}
       <Divider className="name-displayed">{userId}</Divider>
 
       <div className="messages-container">
-        {messages.map((message, index) => (
-          <Message message={message} userId={userId} />
+        {messages.map((message, key) => (
+          <Message key={shortid.generate()} message={message} userId={userId} />
         ))}
       </div>
 
@@ -70,4 +95,6 @@ export default function Conversation({ userId }) {
       </Form>
     </div>
   );
-}
+};
+
+export default Conversation;

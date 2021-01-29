@@ -1,7 +1,9 @@
 const { Console } = require("console");
 const express = require("express");
 const uploadFile = require("express-fileupload");
+
 const socketio = require("socket.io");
+
 const http = require("http");
 
 const PORT = process.env.PORT || 5000;
@@ -10,10 +12,22 @@ const router = require("./router");
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+
+const io = socketio(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    method: ["GET", "POST"],
+    allowHeaders: ["my-custom-header"],
+    credentials: true,
+  },
+});
 
 io.on("connection", (socket) => {
   console.log("New connection");
+
+  socket.on("conversation", ({ id, room }, callback) => {
+    console.log(id, room);
+  });
 
   socket.on("Disconnect", () => {
     console.log("User had left the room");
