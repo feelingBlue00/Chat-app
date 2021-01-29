@@ -4,6 +4,8 @@ const uploadFile = require("express-fileupload");
 
 const socketio = require("socket.io");
 
+const { addUser, removeUser, getUser, getUsersInRoom } = require("./user");
+
 const http = require("http");
 
 const PORT = process.env.PORT || 5000;
@@ -26,7 +28,30 @@ io.on("connection", (socket) => {
   console.log("New connection");
 
   socket.on("conversation", ({ id, room }, callback) => {
-    console.log(id, room);
+    const { error, user } = addUser({ conversationId: socket.id, id, room });
+
+    if (error) return callback(error);
+
+    socket.emit("message", {
+      user: "sender",
+      text: `${user.id}, room: ${user.room}`,
+    });
+
+    socket.broadcast
+      .to(user.room)
+      .emit("message", { user: "sender", text: `${user.id} has joined` });
+
+    socket.join(user.room);
+
+    callback();
+  });
+
+  socket.on("sendMessage", (message, callback) => {
+    const user = getUser(socket.id);
+
+    io.to(user.room).emit("message", { user: user.id, text: message });
+
+    callback();
   });
 
   socket.on("Disconnect", () => {

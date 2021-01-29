@@ -22,7 +22,7 @@ const Conversation = ({ userId, location }) => {
     wrapperCol: { span: 24 },
   };
 
-  const [input, setInput] = useState("");
+  const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [id, setId] = useState("");
   const [room, setRoom] = useState("");
@@ -30,10 +30,17 @@ const Conversation = ({ userId, location }) => {
 
   console.log(messages);
 
-  const sendMessage = () => {
-    setMessages([...messages, { userId: userId, text: input }]);
-    setInput("");
+  const sendMessage = (event) => {
+    event.preventDefault();
+    if (message) {
+      socket.emit("sendMessage", message, () => {
+        setMessage("");
+      });
+      //setMessages([...messages, { userId: userId, text: message }]);
+    }
   };
+
+  console.log(message, messages);
 
   useEffect(() => {
     const { id, room } = queryString.parse(location.search);
@@ -52,6 +59,12 @@ const Conversation = ({ userId, location }) => {
     };
   }, [ENDPOINT, location.search]);
 
+  useEffect(() => {
+    socket.on("message", (message) => {
+      setMessages([...messages, message]);
+    });
+  }, [messages]);
+
   return (
     <div className="conversation-pane">
       {/*For testing*/}
@@ -67,8 +80,8 @@ const Conversation = ({ userId, location }) => {
         <Form.Item rules={[{ required: true }]} {...formItemLayout}>
           <Input.TextArea
             placeholder="Enter a message..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             style={{
               height: "20px",
               width: "100%",
@@ -82,7 +95,7 @@ const Conversation = ({ userId, location }) => {
           <Button
             className="sendButton"
             type="primary"
-            disabled={!input}
+            disabled={!message}
             htmlType="submit"
             style={{
               size: "middle",
