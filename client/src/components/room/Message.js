@@ -1,17 +1,32 @@
 import React from "react";
 
 import { Card, Typography } from "antd";
+import ReactEmoji from "react-emoji";
 
 import "../../css/Message.css";
 
-export default function Message({ message, userId }) {
-  const isMe = userId === message.userId;
+const Message = ({ message: { text, user }, name }) => {
+  let sentByMe = false;
 
-  return (
-    <div className={`message ${isMe && "message-user"}`}>
-      <Card className={isMe ? "message-by-me" : "message-by-guest"}>
-        <Typography>{message.text}</Typography>
+  if (user === name.trim().toLowerCase()) {
+    sentByMe = true;
+  }
+
+  return sentByMe ? (
+    <div className="messageContainer">
+      <p className="sentText">{name}</p>
+      <Card className="message-by-me">
+        <Typography className="content">{text}</Typography>
+      </Card>
+    </div>
+  ) : (
+    <div className="messageContainer">
+      <p classNme="sentText">{user}</p>
+      <Card className="message-by-guest">
+        <Typography className="content">{text}</Typography>
       </Card>
     </div>
   );
-}
+};
+
+export default Message;

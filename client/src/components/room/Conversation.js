@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import shortid from "shortid";
 import queryString from "query-string";
 import io from "socket.io-client";
 
 import { Divider, Button, Form, Input } from "antd";
 import { SendOutlined } from "@ant-design/icons";
 
-import Message from "../room/Message";
+import Messages from "../room/Messages";
+import Status from "../room/Status";
 import "../../css/Conversation.css";
 
 let socket;
@@ -24,33 +24,25 @@ const Conversation = ({ userId, location }) => {
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [id, setId] = useState("");
+  const [name, setName] = useState("");
   const [room, setRoom] = useState("");
   const ENDPOINT = "localhost:5000";
-
-  console.log(messages);
 
   const sendMessage = (event) => {
     event.preventDefault();
     if (message) {
-      socket.emit("sendMessage", message, () => {
-        setMessage("");
-      });
-      //setMessages([...messages, { userId: userId, text: message }]);
+      socket.emit("sendMessage", message, () => setMessage(""));
     }
   };
 
-  console.log(message, messages);
-
   useEffect(() => {
-    const { id, room } = queryString.parse(location.search);
+    socket = io.connect(ENDPOINT);
+    const { name, room } = queryString.parse(location.search);
 
-    socket = io(ENDPOINT);
-
-    setId(id);
+    setName(name);
     setRoom(room);
 
-    socket.emit("conversation", { id, room }, () => {});
+    socket.emit("login", { name, room }, () => {});
 
     return () => {
       socket.emit("disconnect");
@@ -67,13 +59,11 @@ const Conversation = ({ userId, location }) => {
 
   return (
     <div className="conversation-pane">
-      {/*For testing*/}
-      <Divider className="name-displayed">{userId}</Divider>
-
-      <div className="messages-container">
-        {messages.map((message, key) => (
-          <Message key={shortid.generate()} message={message} userId={userId} />
-        ))}
+      <Divider className="status">
+        <Status room={room} />
+      </Divider>
+      <div className="messages">
+        <Messages messages={messages} name={name} />
       </div>
 
       <Form id="message-input" onFinish={sendMessage} layout="inline">
@@ -82,6 +72,7 @@ const Conversation = ({ userId, location }) => {
             placeholder="Enter a message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onPressEnter={(e) => sendMessage(e)}
             style={{
               height: "20px",
               width: "100%",
@@ -96,6 +87,7 @@ const Conversation = ({ userId, location }) => {
             className="sendButton"
             type="primary"
             disabled={!message}
+            onClick={(e) => sendMessage(e)}
             htmlType="submit"
             style={{
               size: "middle",

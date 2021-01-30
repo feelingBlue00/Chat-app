@@ -16,11 +16,11 @@ const layout = {
 
 const LoginForm = () => {
   const [submitted, setSubmitted] = useState(false);
-  const [id, setId] = useState("");
+  const [name, setName] = useState("");
   const [room, setRoom] = useState("");
 
   const handleSubmit = () => {
-    console.log(id);
+    console.log(name);
     setSubmitted((current) => !current);
   };
 
@@ -31,7 +31,7 @@ const LoginForm = () => {
   if (submitted) {
     return (
       <div>
-        <Conversation userId={id} />
+        <Conversation userName={name} />
       </div>
     );
   }
@@ -46,7 +46,7 @@ const LoginForm = () => {
           display: "block",
         }}
       >
-        Enter your user ID and room
+        Enter your username and room
       </h1>
       <br />
       <div className="login-form">
@@ -56,17 +56,17 @@ const LoginForm = () => {
           onFinish={handleSubmit}
         >
           <Form.Item
-            label="Id"
-            name="userId"
+            label="name"
+            name="userName"
             rules={[{ required: true, message: "Please enter your user id" }]}
           >
             <Input
-              value={id}
-              placeholder="Enter your user id"
+              value={name}
+              placeholder="Enter your username"
               type="text"
-              name="userId"
+              name="userName"
               autoComplete="off"
-              onChange={(event) => setId(event.target.value)}
+              onChange={(event) => setName(event.target.value)}
             />
           </Form.Item>
 
@@ -88,9 +88,9 @@ const LoginForm = () => {
           <Form.Item>
             <Link
               onClick={(event) =>
-                !id || !room ? event.preventDefault() : null
+                !name || !room ? event.preventDefault() : null
               }
-              to={`/conversation?id=${id}&room=${room}`}
+              to={`/conversation?name=${name}&room=${room}`}
             >
               <Button type="primary" htmlType="submit">
                 Login
