@@ -1,22 +1,22 @@
 const users = [];
 
-const addUser = ({ conversationId, id, room }) => {
-  id = id.trim().toLowerCase();
+const addUser = ({ id, name, room }) => {
+  name = name.trim().toLowerCase();
   room = room.trim().toLowerCase();
 
   const existingUser = users.find(
-    (user) => user.id === id && user.room === room
+    (user) => user.name === name && user.room === room
   );
 
-  if (!id || !room) {
-    return { error: "Please enter user Id and room id" };
+  if (!name || !room) {
+    return { error: "Please enter username and room id" };
   }
 
   if (existingUser) {
-    return { error: "User Id taken" };
+    return { error: "Username taken" };
   }
 
-  const user = { conversationId, id, room };
+  const user = { id, name, room };
 
   users.push(user);
 

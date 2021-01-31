@@ -1,5 +1,5 @@
 {
-  "name": "server-for-chat",
+  "name": "server",
   "version": "1.0.0",
   "description": "server for chat",
   "main": "index.js",

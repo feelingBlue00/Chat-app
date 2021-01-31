@@ -1,14 +1,10 @@
-const { Console } = require("console");
+const http = require("http");
 const express = require("express");
-const uploadFile = require("express-fileupload");
-
 const socketio = require("socket.io");
+const cors = require("cors");
+const fileUpload = require("express-fileupload");
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./user");
-
-const http = require("http");
-
-const PORT = process.env.PORT || 5000;
 
 const router = require("./router");
 
@@ -24,47 +20,13 @@ const io = socketio(server, {
   },
 });
 
-io.on("connection", (socket) => {
-  console.log("New connection");
-
-  socket.on("conversation", ({ id, room }, callback) => {
-    const { error, user } = addUser({ conversationId: socket.id, id, room });
-
-    if (error) return callback(error);
-
-    socket.emit("message", {
-      user: "sender",
-      text: `${user.id}, room: ${user.room}`,
-    });
-
-    socket.broadcast
-      .to(user.room)
-      .emit("message", { user: "sender", text: `${user.id} has joined` });
-
-    socket.join(user.room);
-
-    callback();
-  });
-
-  socket.on("sendMessage", (message, callback) => {
-    const user = getUser(socket.id);
-
-    io.to(user.room).emit("message", { user: user.id, text: message });
-
-    callback();
-  });
-
-  socket.on("Disconnect", () => {
-    console.log("User had left the room");
-  });
-});
-
-app.use(uploadFile());
+app.use(cors());
 app.use(router);
+app.use(fileUpload());
 
 app.post("/upload", (req, res) => {
-  if (req.files == null) {
-    return res.status(400).json({ msg: "No file upload" });
+  if (req.files === null) {
+    return res.status(400).json({ msg: "No file uploaded" });
   }
 
   const file = req.files.file;
@@ -79,4 +41,58 @@ app.post("/upload", (req, res) => {
   });
 });
 
-server.listen(PORT, () => console.log(`Server has started on port ${PORT}`));
+io.on("connect", (socket) => {
+  socket.on("login", ({ name, room }, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, room });
+
+    if (error) return callback(error);
+
+    socket.join(user.room);
+
+    socket.emit("message", {
+      user: "admin",
+      text: `${user.name}, welcome to room ${user.room}.`,
+    });
+    socket.broadcast
+      .to(user.room)
+      .emit("message", { user: "admin", text: `${user.name} has joined!` });
+
+    io.to(user.room).emit("roomData", {
+      room: user.room,
+      users: getUsersInRoom(user.room),
+    });
+
+    callback();
+  });
+
+  socket.on("sendMessage", (message, callback) => {
+    const user = getUser(socket.id);
+
+    io.to(user.room).emit("message", { user: user.name, text: message });
+    io.to(user.room).emit("roomData", {
+      room: user.room,
+      users: getUsersInRoom(user.room),
+    });
+
+    callback();
+  });
+
+  socket.on("disconnect", () => {
+    const user = removeUser(socket.id);
+
+    if (user) {
+      io.to(user.room).emit("message", {
+        user: "Admin",
+        text: `${user.name} has left.`,
+      });
+      io.to(user.room).emit("roomData", {
+        room: user.room,
+        users: getUsersInRoom(user.room),
+      });
+    }
+  });
+});
+
+server.listen(process.env.PORT || 5000, () =>
+  console.log(`Server has started.`)
+);

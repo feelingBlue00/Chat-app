@@ -6,13 +6,13 @@ import Message from "./Message";
 
 const Messages = ({ messages, name }) => {
   return (
-    <div className="messages">
+    <ScrollToBottom className="messages">
       {messages.map((message, index) => (
         <div className="message-container" key={index}>
           <Message message={message} name={name} />
         </div>
       ))}
-    </div>
+    </ScrollToBottom>
   );
 };
 

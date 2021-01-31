@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
 
-import { Divider, Button, Form, Input } from "antd";
-import { SendOutlined } from "@ant-design/icons";
+import { Divider, Button, Form, Input, Upload } from "antd";
+import { SendOutlined, UploadOutlined } from "@ant-design/icons";
 
 import Messages from "../room/Messages";
 import Status from "../room/Status";
@@ -11,7 +11,7 @@ import "../../css/Conversation.css";
 
 let socket;
 
-const Conversation = ({ userId, location }) => {
+const Conversation = ({ userName, location }) => {
   const formItemLayout = {
     labelCol: { span: 24 },
     wrapperCol: { span: 24 },
@@ -67,6 +67,11 @@ const Conversation = ({ userId, location }) => {
       </div>
 
       <Form id="message-input" onFinish={sendMessage} layout="inline">
+        <Form.Item>
+          <Upload name="file" accept=".png,.gif,.jpg">
+            <Button icon={<UploadOutlined />}>Upload file</Button>
+          </Upload>
+        </Form.Item>
         <Form.Item rules={[{ required: true }]} {...formItemLayout}>
           <Input.TextArea
             placeholder="Enter a message..."

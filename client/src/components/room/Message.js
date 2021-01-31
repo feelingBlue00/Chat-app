@@ -1,9 +1,10 @@
 import React from "react";
 
 import { Card, Typography } from "antd";
-import ReactEmoji from "react-emoji";
 
 import "../../css/Message.css";
+
+const { Text } = Typography;
 
 const Message = ({ message: { text, user }, name }) => {
   let sentByMe = false;
@@ -15,15 +16,21 @@ const Message = ({ message: { text, user }, name }) => {
   return sentByMe ? (
     <div className="messageContainer">
       <p className="sentText">{name}</p>
-      <Card className="message-by-me">
-        <Typography className="content">{text}</Typography>
+      <Card
+        style={{ width: 300, alignItems: "right" }}
+        className="message-by-me"
+      >
+        <Text className="content">{text}</Text>
       </Card>
     </div>
   ) : (
     <div className="messageContainer">
       <p classNme="sentText">{user}</p>
-      <Card className="message-by-guest">
-        <Typography className="content">{text}</Typography>
+      <Card
+        style={{ width: 300, alignItems: "left" }}
+        className="message-by-guest"
+      >
+        <Text className="content">{text}</Text>
       </Card>
     </div>
   );
