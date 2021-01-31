@@ -27,7 +27,7 @@ const Conversation = ({ userName, location }) => {
   const [messages, setMessages] = useState([]);
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
-  const ENDPOINT = "http://sadchat.surge.sh/";
+  const ENDPOINT = "https://sadchat.herokuapp.com/:80";
 
   const sendMessage = (event) => {
     event.preventDefault();
