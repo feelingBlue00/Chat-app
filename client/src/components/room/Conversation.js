@@ -27,7 +27,7 @@ const Conversation = ({ userName, location }) => {
   const [messages, setMessages] = useState([]);
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
-  const ENDPOINT = "localhost:5000";
+  const ENDPOINT = "http://sadchat.surge.sh/";
 
   const sendMessage = (event) => {
     event.preventDefault();
