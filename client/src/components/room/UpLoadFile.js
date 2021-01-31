@@ -1,21 +1,37 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { Fragment } from "react";
 
-import { Form, Input, Upload } from "antd";
+import { Upload, message } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
-const UpLoadFile = () => {
-  const [file, setFile] = useState("");
-  const [fileName, setFileName] = useState("Choose file");
+const { Dragger } = Upload;
+
+const UploadFile = () => {
+  const props = {
+    name: "file",
+    multiple: false,
+    accept: "image/*",
+    action: "http://localhost:5000/file",
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== "uploading") {
+        console.log(info.file, info.fileList);
+      }
+
+      if (status === "done") {
+        message.success(`${info.file.name} uploaded successfully`);
+      } else if (status === "error") {
+        message.error(`${info.file.name} file upload failed`);
+      }
+    },
+  };
 
   return (
-    <React.Fragment>
-      <Form>
-        <Form.Item className="user-file-upload-field">
-          <Input id="user-file" htmlType="file" multiple />
-        </Form.Item>
-      </Form>
-    </React.Fragment>
+    <Fragment>
+      <Dragger {...props} style={{ width: 80 }}>
+        <UploadOutlined />
+      </Dragger>
+    </Fragment>
   );
 };
 
-export default UpLoadFile;
+export default UploadFile;

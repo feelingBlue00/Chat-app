@@ -8,5 +8,6 @@
 
 #message-input {
   position: fixed;
-  bottom: 10px;
+  bottom: 2px;
+  align-items: right;
 }

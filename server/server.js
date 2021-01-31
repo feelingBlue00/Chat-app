@@ -2,7 +2,7 @@ const http = require("http");
 const express = require("express");
 const socketio = require("socket.io");
 const cors = require("cors");
-const fileUpload = require("express-fileupload");
+const webRoutes = require("./router");
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./user");
 
@@ -22,24 +22,7 @@ const io = socketio(server, {
 
 app.use(cors());
 app.use(router);
-app.use(fileUpload());
-
-app.post("/upload", (req, res) => {
-  if (req.files === null) {
-    return res.status(400).json({ msg: "No file uploaded" });
-  }
-
-  const file = req.files.file;
-
-  file.mv(`${__dirname}/client/public/uploads/${file.name}`, (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
-
-    res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
-  });
-});
+app.use(webRoutes);
 
 io.on("connect", (socket) => {
   socket.on("login", ({ name, room }, callback) => {
@@ -49,10 +32,6 @@ io.on("connect", (socket) => {
 
     socket.join(user.room);
 
-    socket.emit("message", {
-      user: "admin",
-      text: `${user.name}, welcome to room ${user.room}.`,
-    });
     socket.broadcast
       .to(user.room)
       .emit("message", { user: "admin", text: `${user.name} has joined!` });
