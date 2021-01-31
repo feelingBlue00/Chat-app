@@ -6,8 +6,11 @@
   bottom: 25px;
 }
 
+.input-field {
+  align-items: center;
+}
+
 #message-input {
-  position: fixed;
+  position: relative;
   bottom: 2px;
-  align-items: right;
 }

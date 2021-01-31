@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 import { Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
@@ -6,6 +6,8 @@ import { UploadOutlined } from "@ant-design/icons";
 const { Dragger } = Upload;
 
 const UploadFile = () => {
+  const [uploaded, setUploaded] = useState(false);
+
   const props = {
     name: "file",
     multiple: false,
@@ -19,6 +21,7 @@ const UploadFile = () => {
 
       if (status === "done") {
         message.success(`${info.file.name} uploaded successfully`);
+        setUploaded(true);
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed`);
       }

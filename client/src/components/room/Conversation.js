@@ -66,43 +66,47 @@ const Conversation = ({ userName, location }) => {
       <div className="messages">
         <Messages messages={messages} name={name} />
       </div>
-
-      <Form id="message-input" onFinish={sendMessage} layout="inline">
-        <Form.Item>
-          <UploadFile />
-        </Form.Item>
-        <Form.Item rules={[{ required: true }]} {...formItemLayout}>
-          <Input.TextArea
-            placeholder="Enter a message..."
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onPressEnter={(e) => sendMessage(e)}
-            style={{
-              height: "20px",
-              width: "100%",
-              resize: "none",
-              radius: "20px",
-              display: "inline",
-              alignItems: "center",
-            }}
-          />
-        </Form.Item>
-        <Form.Item name="sendButton" {...buttonItemLayout}>
-          <Button
-            className="sendButton"
-            type="primary"
-            disabled={!message}
-            onClick={(e) => sendMessage(e)}
-            htmlType="submit"
-            style={{
-              size: "middle",
-              shape: "circle",
-              backgroundColor: "00BFFF",
-            }}
-            icon={<SendOutlined />}
-          />
-        </Form.Item>
-      </Form>
+      <div className="input-field">
+        <Form
+          id="message-input"
+          onFinish={sendMessage}
+          layout="inline"
+          style={{ alignItems: "center" }}
+        >
+          <Form.Item>
+            <UploadFile />
+          </Form.Item>
+          <Form.Item rules={[{ required: true }]} {...formItemLayout}>
+            <Input.TextArea
+              placeholder="Enter a message..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onPressEnter={(e) => sendMessage(e)}
+              style={{
+                height: "20px",
+                width: "100%",
+                resize: "none",
+                radius: "20px",
+              }}
+            />
+          </Form.Item>
+          <Form.Item name="sendButton" {...buttonItemLayout}>
+            <Button
+              className="sendButton"
+              type="primary"
+              disabled={!message}
+              onClick={(e) => sendMessage(e)}
+              htmlType="submit"
+              style={{
+                size: "middle",
+                shape: "circle",
+                backgroundColor: "00BFFF",
+              }}
+              icon={<SendOutlined />}
+            />
+          </Form.Item>
+        </Form>
+      </div>
     </div>
   );
 };
