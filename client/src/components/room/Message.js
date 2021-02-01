@@ -15,7 +15,9 @@ const Message = ({ message: { text, user }, name }) => {
 
   return sentByMe ? (
     <div className="messageContainer-me">
-      <p className="sentText">{name}</p>
+      <p className="sentText" style={{ alignItems: "right" }}>
+        {name}
+      </p>
       <Card
         style={{ width: 300, alignItems: "right" }}
         className="message-by-me"
@@ -25,7 +27,9 @@ const Message = ({ message: { text, user }, name }) => {
     </div>
   ) : (
     <div className="messageContainer-guest">
-      <p classNme="sentText">{user}</p>
+      <p classNme="sentText" style={{ alignItems: "left" }}>
+        {user}
+      </p>
       <Card
         style={{ width: 300, alignItems: "left" }}
         className="message-by-guest"
