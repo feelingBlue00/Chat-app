@@ -9,10 +9,17 @@
 .message-by-me {
   background-color: cornflowerblue !important;
   border-radius: 10px;
-  margin-left: auto;
 }
 
 .message-by-guest {
   background-color: lightgrey !important;
   border-radius: 10px;
+}
+
+.messageContainer-me {
+  align-items: right;
+}
+
+.messageContainer-guest {
+  align-items: left;
 }

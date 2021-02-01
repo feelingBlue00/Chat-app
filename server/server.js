@@ -13,7 +13,7 @@ const server = http.createServer(app);
 
 const io = socketio(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "localhost:3000",
     method: ["GET", "POST"],
     allowHeaders: ["my-custom-header"],
     credentials: true,
@@ -23,6 +23,11 @@ const io = socketio(server, {
 app.use(cors());
 app.use(router);
 app.use(webRoutes);
+
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   next();
+// });
 
 io.on("connect", (socket) => {
   socket.on("login", ({ name, room }, callback) => {

@@ -12,7 +12,7 @@ const UploadFile = () => {
     name: "file",
     multiple: false,
     accept: "image/*",
-    action: "http://localhost:5000/file",
+    action: " https://sadchat.herokuapp.com/file",
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {
