@@ -40,7 +40,7 @@ For dev:
     
  
  Thank you for using :)) 
- This was a demo and a testimonial for my self learning progress, it has been a fun ride.
+ This was a demo and a testimonial for my self learning ability (and copy, paste skill :b), it has been a fun ride.
  After this, I realized that I really hate styling website, it encourage me to move toward backend side of things.
  
  I may continue to improve this app, or move on with my intention of learning Python and do some fun stuff with it.
